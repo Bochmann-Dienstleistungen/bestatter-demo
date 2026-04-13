@@ -631,7 +631,7 @@ footer{
 }
 
 /* UTILS */
-.rv{opacity:0;transform:translateY(48px)}
+.rv{will-change:transform,opacity}
 .magnetic{display:inline-block}
 </style>
 </head>
@@ -1368,16 +1368,38 @@ footer{
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
+// ===== FALLBACK: Reveal all if GSAP never fires (e.g. script blocked) =====
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if(document.getElementById('loader') && document.getElementById('loader').style.display !== 'none') {
+      document.getElementById('loader').style.display = 'none';
+    }
+    document.querySelectorAll('.rv').forEach(el => {
+      if(getComputedStyle(el).opacity === '0') {
+        el.style.opacity = '1'; el.style.transform = 'none';
+      }
+    });
+  }, 5000);
+});
+
 // ===== LOADER =====
 (function(){
+  // Safety timeout: hide loader after 4s no matter what
+  const safetyTimer = setTimeout(() => {
+    const l = document.getElementById('loader');
+    if(l) l.style.display = 'none';
+    try { initPage(); } catch(e) { console.warn('initPage error:', e); }
+  }, 4000);
+
   gsap.to('#loader-fill', {
     width: '100%', duration: 1.6, ease: 'power2.inOut',
     onComplete: () => {
       gsap.to('#loader', {
         scaleY: 0, transformOrigin: 'top', duration: 0.9, ease: 'power4.inOut',
         onComplete: () => {
+          clearTimeout(safetyTimer);
           document.getElementById('loader').style.display = 'none';
-          initPage();
+          try { initPage(); } catch(e) { console.warn('initPage error:', e); }
         }
       });
     }
@@ -1389,19 +1411,9 @@ function initPage() {
   // ===== HERO EYEBROW =====
   gsap.to('#hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.1 });
 
-  // ===== HERO TITLE SPLIT =====
-  const titleEl = document.getElementById('hero-title');
-  const rawHTML = titleEl.innerHTML;
-  // preserve <br> and <em> tags — split text inside em separately
-  titleEl.innerHTML = titleEl.innerHTML
-    .replace(/([\u00C0-\u024F\w,.!?'-]+|[^\u00C0-\u024F\w<>])/g, (m, w) => {
-      if(m.startsWith('<') || m === ' ') return m;
-      return `<span style="display:inline-block;overflow:hidden"><span class="ch" style="display:inline-block">${m}</span></span>`;
-    });
-
-  gsap.from('#hero-title .ch', {
-    y: '110%', rotateZ: 3, stagger: 0.018, duration: 1.1,
-    ease: 'power4.out', delay: 0.3
+  // ===== HERO TITLE ANIMATE =====
+  gsap.from('#hero-title', {
+    opacity: 0, y: 40, duration: 1.2, ease: 'power4.out', delay: 0.3
   });
 
   gsap.to('#hero-sub',  { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.9 });
@@ -1472,10 +1484,10 @@ function initPage() {
   gsap.to(track, { x: -w, duration: 28, ease: 'none', repeat: -1 });
 
   // ===== SCROLL REVEALS =====
-  ScrollTrigger.normalizeScroll(true);
   gsap.utils.toArray('.rv').forEach(el => {
-    gsap.from(el, {
-      opacity: 0, y: 48,
+    gsap.set(el, { opacity: 0, y: 48 });
+    gsap.to(el, {
+      opacity: 1, y: 0,
       duration: 1, ease: 'power3.out',
       scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
     });
