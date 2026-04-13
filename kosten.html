@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bestattungskosten berechnen — Bestattungshaus [Name] Zwickau</title>
+<meta name="description" content="Was kostet eine würdevolle Bestattung? Berechnen Sie Ihre Kosten in 4 Schritten — transparent, unverbindlich und kostenlos.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕊️</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
+:root{
+  --bg:#0c0c0e;--bg2:#141416;--bg3:#1d1d21;--bg4:#252529;
+  --text:#f0ece4;--muted:rgba(240,236,228,0.5);
+  --gold:#c9a84c;--gold2:#e8c97a;--sage:#6b9e8f;
+  --border:rgba(201,168,76,0.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(12,12,14,.95);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 48px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:18px;letter-spacing:0.08em}
+.nav-logo span{color:var(--gold)}
+.nav-back{font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:8px;transition:color .3s}
+.nav-back:hover{color:var(--text)}
+
+.page-hero{
+  padding:80px 48px 64px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);
+}
+.eyebrow{font-size:11px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);
+  font-weight:300;line-height:1.05;margin-bottom:16px}
+.page-title em{font-style:italic;color:var(--gold)}
+.page-sub{font-size:15px;color:var(--muted);max-width:500px;line-height:1.8}
+
+.rechner-wrap{max-width:860px;margin:0 auto;padding:80px 48px}
+
+.progress-bar{
+  height:2px;background:rgba(240,236,228,.08);margin-bottom:48px;overflow:hidden;
+}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width .5s ease}
+
+.rechner-step{
+  background:var(--bg2);padding:40px 48px;
+  border-left:2px solid transparent;
+  transition:border-color .3s,opacity .4s;
+  margin-bottom:2px;
+}
+.rechner-step.active{border-left-color:var(--gold)}
+.rechner-step.done{border-left-color:var(--sage)}
+.step-label{font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.step-question{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin-bottom:28px}
+.step-options{display:flex;flex-wrap:wrap;gap:10px}
+.step-option{
+  padding:12px 24px;
+  border:1px solid rgba(240,236,228,.12);
+  font-size:13px;color:var(--muted);
+  transition:all .3s;cursor:pointer;
+  background:transparent;font-family:'Inter',sans-serif;
+}
+.step-option:hover{border-color:var(--gold);color:var(--text)}
+.step-option.selected{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.06)}
+
+.result-box{
+  background:var(--bg2);padding:56px 48px;
+  border:1px solid var(--border);
+  margin-top:2px;display:none;
+}
+.result-box.show{display:block}
+.result-label{font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.result-range{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6vw,72px);
+  font-weight:300;color:var(--gold);margin-bottom:8px}
+.result-note{font-size:14px;color:var(--muted);line-height:1.8;max-width:560px;margin-bottom:28px}
+.result-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+.result-tag{padding:6px 16px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);
+  font-size:11px;color:var(--gold);letter-spacing:0.06em}
+.result-cta-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;margin-bottom:8px}
+.result-cta-sub{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.7}
+.result-form{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.result-form input{
+  flex:1;min-width:160px;padding:14px 16px;
+  background:var(--bg3);border:1px solid rgba(240,236,228,.1);
+  color:var(--text);font-family:'Inter',sans-serif;font-size:14px;outline:none;
+  transition:border-color .3s;
+}
+.result-form input:focus{border-color:var(--gold)}
+.btn-primary{
+  padding:14px 32px;background:var(--gold);color:var(--bg);
+  font-size:12px;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;
+  font-family:'Inter',sans-serif;cursor:pointer;border:none;
+  transition:background .3s;white-space:nowrap;
+}
+.btn-primary:hover{background:var(--gold2)}
+.btn-berechnen{
+  margin-top:24px;padding:16px 40px;display:none;
+}
+.result-privacy{font-size:11px;color:var(--muted);line-height:1.6}
+.result-or{
+  display:flex;align-items:center;gap:16px;margin:28px 0;
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);
+}
+.result-or::before,.result-or::after{content:'';flex:1;height:1px;background:var(--border)}
+.result-phone{
+  font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;
+}
+.result-phone a{color:var(--text);transition:color .3s}
+.result-phone a:hover{color:var(--gold)}
+
+.whatsapp-btn{
+  position:fixed;bottom:32px;right:32px;z-index:700;
+  width:56px;height:56px;border-radius:50%;
+  background:#25D366;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 24px rgba(37,211,102,.35);transition:transform .3s;
+}
+.whatsapp-btn:hover{transform:scale(1.1)}
+.whatsapp-btn svg{width:28px;height:28px;fill:white}
+
+footer{
+  background:var(--bg2);padding:32px 48px;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  font-size:12px;color:var(--muted);
+}
+footer a{color:var(--gold)}
+
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .page-hero{padding:48px 20px 40px}
+  .rechner-wrap{padding:48px 20px}
+  .rechner-step{padding:28px 20px}
+  .result-box{padding:36px 20px}
+  footer{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Bestattungshaus <span>[Name]</span></a>
+  <a href="index.html" class="nav-back">← Zurück zur Startseite</a>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Transparente Kosten</div>
+  <h1 class="page-title">Was kostet eine<br><em>würdevolle Bestattung?</em></h1>
+  <p class="page-sub">Beantworten Sie 4 kurze Fragen und erhalten Sie sofort eine unverbindliche Kostenschätzung — kostenlos und ohne Verpflichtung.</p>
+</div>
+
+<div class="rechner-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+
+  <!-- Schritt 1 -->
+  <div class="rechner-step active" id="rs1">
+    <div class="step-label">Schritt 1 von 4</div>
+    <div class="step-question">Welche Bestattungsart wünschen Sie sich?</div>
+    <div class="step-options">
+      <button class="step-option" data-step="1" data-val="erd" data-price="1800" data-label="Erdbestattung">Erdbestattung</button>
+      <button class="step-option" data-step="1" data-val="feuer" data-price="1200" data-label="Feuerbestattung">Feuerbestattung</button>
+      <button class="step-option" data-step="1" data-val="wald" data-price="1400" data-label="Waldbestattung">Waldbestattung</button>
+      <button class="step-option" data-step="1" data-val="see" data-price="1600" data-label="Seebestattung">Seebestattung</button>
+      <button class="step-option" data-step="1" data-val="anonym" data-price="900" data-label="Anonyme Bestattung">Anonyme Bestattung</button>
+    </div>
+  </div>
+
+  <!-- Schritt 2 -->
+  <div class="rechner-step" id="rs2" style="opacity:.35;pointer-events:none">
+    <div class="step-label">Schritt 2 von 4</div>
+    <div class="step-question">Welche Qualität soll der Sarg / die Urne haben?</div>
+    <div class="step-options">
+      <button class="step-option" data-step="2" data-val="einfach" data-price="300" data-label="Einfach">Einfach (ab 300 €)</button>
+      <button class="step-option" data-step="2" data-val="standard" data-price="700" data-label="Standard">Standard (ab 600 €)</button>
+      <button class="step-option" data-step="2" data-val="premium" data-price="1400" data-label="Premium">Premium (ab 1.200 €)</button>
+    </div>
+  </div>
+
+  <!-- Schritt 3 -->
+  <div class="rechner-step" id="rs3" style="opacity:.35;pointer-events:none">
+    <div class="step-label">Schritt 3 von 4</div>
+    <div class="step-question">Wie groß soll die Trauerfeier sein?</div>
+    <div class="step-options">
+      <button class="step-option" data-step="3" data-val="keine" data-price="0" data-label="Ohne Trauerfeier">Ohne Trauerfeier</button>
+      <button class="step-option" data-step="3" data-val="klein" data-price="400" data-label="Kleiner Kreis">Kleiner Kreis (bis 20 Pers.)</button>
+      <button class="step-option" data-step="3" data-val="gross" data-price="800" data-label="Grosse Feier">Gröss. Feier (bis 60 Pers.)</button>
+    </div>
+  </div>
+
+  <!-- Schritt 4 -->
+  <div class="rechner-step" id="rs4" style="opacity:.35;pointer-events:none">
+    <div class="step-label">Schritt 4 von 4</div>
+    <div class="step-question">Welche Extras möchten Sie hinzufügen?</div>
+    <div class="step-options">
+      <button class="step-option" data-step="4" data-val="blumen" data-price="250" data-multi="true" data-label="Blumenschmuck">Blumenschmuck (250 €)</button>
+      <button class="step-option" data-step="4" data-val="anzeige" data-price="180" data-multi="true" data-label="Traueranzeige">Traueranzeige (180 €)</button>
+      <button class="step-option" data-step="4" data-val="druck" data-price="120" data-multi="true" data-label="Gedenkdrucke">Gedenkdrucke (120 €)</button>
+      <button class="step-option" data-step="4" data-val="musik" data-price="200" data-multi="true" data-label="Livemusik">Livemusik (200 €)</button>
+      <button class="step-option" data-step="4" data-val="keine_extras" data-price="0" data-multi="true" data-label="">Keine Extras</button>
+    </div>
+    <button class="btn-primary btn-berechnen" id="rechner-berechnen">Kosten berechnen</button>
+  </div>
+
+  <!-- ERGEBNIS -->
+  <div class="result-box" id="rechner-result">
+    <div class="result-label">Ihre geschätzte Kostenspanne</div>
+    <div class="result-range" id="result-range">— €</div>
+    <div class="result-note">Diese Schätzung basiert auf Ihren Angaben. Der genaue Preis hängt von weiteren Details ab — wir klären das gerne persönlich, kostenlos und ohne Druck.</div>
+    <div class="result-tags" id="result-tags"></div>
+
+    <div class="result-cta-title">Jetzt unverbindlich beraten lassen</div>
+    <div class="result-cta-sub">Wir rufen Sie zurück — kostenlos, persönlich, in Ruhe. Kein Verkaufsdruck.</div>
+    <form action="https://formspree.io/f/mlgpooqw" method="POST">
+      <input type="hidden" name="quelle" value="Kosten-Rechner">
+      <input type="hidden" name="kalkulation" id="kalk-hidden">
+      <div class="result-form">
+        <input type="text" name="name" placeholder="Ihr Name" required>
+        <input type="tel" name="telefon" placeholder="Ihre Telefonnummer" required>
+        <button type="submit" class="btn-primary">Rückruf anfragen</button>
+      </div>
+      <div class="result-privacy">Ihre Daten werden vertraulich behandelt. Kein Spam. Kein Verkauf Ihrer Daten.</div>
+    </form>
+
+    <div class="result-or">oder</div>
+    <div class="result-phone">Direkt anrufen: <a href="tel:+4937500000">0375 000 000</a></div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px">24 Stunden erreichbar — auch nachts und an Feiertagen</p>
+  </div>
+</div>
+
+<a href="https://wa.me/4915254190819" class="whatsapp-btn" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.477 2 2 6.477 2 12.004c0 1.744.454 3.384 1.243 4.814L2 22l5.347-1.225A9.956 9.956 0 0012.004 22C17.531 22 22 17.523 22 11.996 22 6.469 17.531 2 12.004 2z"/></svg>
+</a>
+
+<footer>
+  <span>© 2026 Bestattungshaus [Name] · Zwickau</span>
+  <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const state = { 1: null, 2: null, 3: null, 4: [] };
+const labels = { 1: '', 2: '', 3: '' };
+let step4Done = false;
+
+function updateProgress(step) {
+  document.getElementById('prog-fill').style.width = ((step / 4) * 100) + '%';
+}
+
+document.querySelectorAll('.step-option').forEach(btn => {
+  const isMulti = btn.dataset.multi === 'true';
+
+  btn.addEventListener('click', () => {
+    const step = parseInt(btn.dataset.step);
+
+    if (!isMulti) {
+      document.querySelectorAll(`[data-step="${step}"]`).forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      state[step] = parseInt(btn.dataset.price);
+      labels[step] = btn.dataset.label;
+
+      const cur = document.getElementById(`rs${step}`);
+      cur.classList.add('done');
+
+      const next = document.getElementById(`rs${step + 1}`);
+      if (next) {
+        next.style.opacity = '1';
+        next.style.pointerEvents = 'all';
+        next.classList.add('active');
+        gsap.from(next, { opacity: 0, y: 20, duration: 0.5, ease: 'power3.out' });
+      }
+      updateProgress(step);
+    } else {
+      if (btn.dataset.val === 'keine_extras') {
+        document.querySelectorAll('[data-step="4"]').forEach(b => b.classList.remove('selected'));
+        state[4] = [];
+        btn.classList.add('selected');
+      } else {
+        document.querySelector('[data-val="keine_extras"]').classList.remove('selected');
+        btn.classList.toggle('selected');
+        state[4] = [];
+        document.querySelectorAll('[data-step="4"].selected').forEach(b => {
+          if (b.dataset.price > 0) state[4].push(parseInt(b.dataset.price));
+        });
+      }
+      document.getElementById('rechner-berechnen').style.display = 'inline-block';
+      updateProgress(4);
+    }
+  });
+});
+
+document.getElementById('rechner-berechnen').addEventListener('click', () => {
+  const base = (state[1] || 900) + (state[2] || 300) + (state[3] || 0);
+  const extras = state[4].reduce((a, b) => a + b, 0);
+  const total = base + extras;
+  const low = Math.round(total * 0.85 / 50) * 50;
+  const high = Math.round(total * 1.35 / 50) * 50;
+
+  document.getElementById('result-range').textContent =
+    `${low.toLocaleString('de')} € – ${high.toLocaleString('de')} €`;
+
+  const tags = [];
+  if (labels[1]) tags.push(labels[1]);
+  if (labels[2]) tags.push(labels[2]);
+  if (labels[3]) tags.push(labels[3]);
+  document.querySelectorAll('[data-step="4"].selected').forEach(b => {
+    if (b.dataset.label) tags.push(b.dataset.label);
+  });
+
+  document.getElementById('result-tags').innerHTML =
+    tags.map(t => `<div class="result-tag">${t}</div>`).join('');
+
+  document.getElementById('kalk-hidden').value =
+    `${low.toLocaleString('de')} – ${high.toLocaleString('de')} € | ${tags.join(', ')}`;
+
+  const result = document.getElementById('rechner-result');
+  result.classList.add('show');
+  gsap.from(result, { opacity: 0, y: 32, duration: 0.8, ease: 'power3.out' });
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  updateProgress(4);
+});
+</script>
+</body>
+</html>
