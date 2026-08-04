@@ -9,7 +9,7 @@
 <meta property="og:description" content="Persönliche Begleitung in schweren Stunden. 24/7 erreichbar.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕊</text></svg>">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.bunny.net/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
   --bg:     #13110e;
@@ -201,6 +201,19 @@ nav{
 }
 .inhaber-img-wrap{position:relative}
 .inhaber-img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top}
+.inhaber-placeholder{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:linear-gradient(160deg,#26221c,#15130f);
+  border:1px solid rgba(212,175,95,.22);
+  text-align:center;padding:32px;
+}
+.inhaber-placeholder svg{width:48px;height:48px;color:var(--bronze);opacity:.55}
+.inhaber-placeholder-title{
+  font-family:'Cormorant Garamond',serif;font-size:24px;font-style:italic;color:var(--bronze);
+}
+.inhaber-placeholder-note{
+  font-size:13px;line-height:1.6;color:rgba(240,236,228,.55);max-width:24ch;
+}
 .inhaber-img-overlay{position:absolute;bottom:0;left:0;right:0;padding:24px;background:linear-gradient(to top,rgba(19,17,14,.7),transparent)}
 .inhaber-caption{font-size:13px;color:rgba(240,236,228,.8);letter-spacing:0.06em}
 .inhaber-text .eyebrow{color:var(--bronze)}
@@ -316,8 +329,26 @@ nav{
 @media(max-width:900px){.contact-section{grid-template-columns:1fr;padding:64px 20px}.contact-form{padding:32px 20px}.form-row{grid-template-columns:1fr}}
 
 /* ===== MAP ===== */
-.map-section{height:380px;filter:grayscale(.8) brightness(.6);overflow:hidden}
-.map-section iframe{width:100%;height:100%;display:block;border:0}
+.map-section{height:380px;overflow:hidden}
+.map-section iframe{width:100%;height:100%;display:block;border:0;filter:grayscale(.8) brightness(.6)}
+.map-consent{
+  height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;text-align:center;padding:32px;
+  background:linear-gradient(160deg,var(--bg3),var(--bg2));
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.map-consent svg{width:38px;height:38px;color:var(--gold);opacity:.6}
+.map-consent-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--text)}
+.map-consent-text{font-size:14px;color:var(--muted);max-width:46ch;line-height:1.65}
+.map-consent-text a{color:var(--gold);text-decoration:underline}
+.map-consent-btn{
+  margin-top:6px;padding:13px 30px;background:var(--gold);color:#13110e;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:0.14em;text-transform:uppercase;
+  transition:background .25s cubic-bezier(.4,0,.2,1);
+}
+.map-consent-btn:hover{background:var(--gold2)}
+.map-consent-btn:active{background:var(--bronze)}
 
 /* ===== FOOTER ===== */
 footer{background:var(--bg2);padding:56px 48px;border-top:1px solid var(--border)}
@@ -406,9 +437,9 @@ footer{background:var(--bg2);padding:56px 48px;border-top:1px solid var(--border
 <!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-bg">
-    <div class="hero-slide active" style="background-image:url('https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&w=1920')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.pexels.com/photos/158028/pexels-photo-158028.jpeg?auto=compress&w=1920')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&w=1920')"></div>
+    <div class="hero-slide active" style="background-image:url('img/hero-2.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('img/feuerbestattung.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('img/waldbestattung.jpg')"></div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -494,7 +525,7 @@ footer{background:var(--bg2);padding:56px 48px;border-top:1px solid var(--border
   <div class="services-grid">
     <div class="service-card rv">
       <div class="card-img-wrap">
-        <img class="card-img" src="erdbestattung.jpg" alt="Erdbestattung" loading="lazy">
+        <img class="card-img" src="img/erdbestattung.jpg" alt="Erdbestattung" loading="lazy">
         <div class="card-overlay"></div>
       </div>
       <div class="card-body">
@@ -506,7 +537,7 @@ footer{background:var(--bg2);padding:56px 48px;border-top:1px solid var(--border
     </div>
     <div class="service-card rv">
       <div class="card-img-wrap">
-        <img class="card-img" src="feuerbestattung.jpg" alt="Feuerbestattung" loading="lazy">
+        <img class="card-img" src="img/feuerbestattung.jpg" alt="Feuerbestattung" loading="lazy">
         <div class="card-overlay"></div>
       </div>
       <div class="card-body">
@@ -518,7 +549,7 @@ footer{background:var(--bg2);padding:56px 48px;border-top:1px solid var(--border
     </div>
     <div class="service-card rv">
       <div class="card-img-wrap">
-        <img class="card-img" src="waldbestattung.jpg" alt="Waldbestattung" loading="lazy">
+        <img class="card-img" src="img/waldbestattung.jpg" alt="Waldbestattung" loading="lazy">
         <div class="card-overlay"></div>
       </div>
       <div class="card-body">
@@ -530,7 +561,7 @@ footer{background:var(--bg2);padding:56px 48px;border-top:1px solid var(--border
     </div>
     <div class="service-card rv">
       <div class="card-img-wrap">
-        <img class="card-img" src="https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&w=800" alt="Seebestattung" loading="lazy">
+        <img class="card-img" src="img/seebestattung.jpg" alt="Seebestattung" loading="lazy">
         <div class="card-overlay"></div>
       </div>
       <div class="card-body">
@@ -542,7 +573,7 @@ footer{background:var(--bg2);padding:56px 48px;border-top:1px solid var(--border
     </div>
     <div class="service-card rv">
       <div class="card-img-wrap">
-        <img class="card-img" src="https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?auto=compress&w=800" alt="Vorsorge" loading="lazy">
+        <img class="card-img" src="img/vorsorge.jpg" alt="Vorsorge" loading="lazy">
         <div class="card-overlay"></div>
       </div>
       <div class="card-body">
@@ -565,7 +596,13 @@ footer{background:var(--bg2);padding:56px 48px;border-top:1px solid var(--border
 <!-- INHABER (cream section) -->
 <section class="inhaber-section" id="ueber-uns">
   <div class="inhaber-img-wrap">
-    <img class="inhaber-img" src="https://images.pexels.com/photos/5207262/pexels-photo-5207262.jpeg?auto=compress&w=900" alt="Inhaber">
+    <div class="inhaber-img inhaber-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+        <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/>
+      </svg>
+      <span class="inhaber-placeholder-title">Ihr Portrait</span>
+      <span class="inhaber-placeholder-note">Hier steht später Ihr eigenes Foto —<br>persönlich, in Ihren Räumen aufgenommen.</span>
+    </div>
     <div class="inhaber-img-overlay">
       <div class="inhaber-caption">[Name], Inhaber · Bestattungsmeister</div>
     </div>
@@ -789,8 +826,29 @@ footer{background:var(--bg2);padding:56px 48px;border-top:1px solid var(--border
 
 <!-- MAP -->
 <div class="map-section">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2510.0!2d12.496!3d50.719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDQzJzA4LjQiTiAxMsKwMjknNDUuNiJF!5e0!3m2!1sde!2sde!4v1" allowfullscreen loading="lazy"></iframe>
+  <div class="map-consent" id="mapConsent">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+    </svg>
+    <div class="map-consent-title">Karte von Google Maps</div>
+    <p class="map-consent-text">
+      Beim Laden der Karte wird Ihre IP-Adresse an Google übertragen.
+      Mehr dazu in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.
+    </p>
+    <button type="button" class="map-consent-btn" id="mapLoadBtn">Karte laden</button>
+  </div>
 </div>
+<script>
+  document.getElementById('mapLoadBtn').addEventListener('click', function () {
+    var box = document.getElementById('mapConsent');
+    var f = document.createElement('iframe');
+    f.src = 'https://maps.google.com/maps?q=Karl-Marx-Stra%C3%9Fe+106,+08066+Zwickau&hl=de&z=15&output=embed';
+    f.title = 'Standort Bestattungshaus [Name], Karl-Marx-Straße 106, Zwickau';
+    f.loading = 'lazy';
+    f.setAttribute('allowfullscreen', '');
+    box.replaceWith(f);
+  });
+</script>
 
 <!-- FOOTER -->
 <footer>
